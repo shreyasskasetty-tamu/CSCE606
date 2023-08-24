@@ -1,2 +1,2 @@
 # CSCE606
-Software Engineering Assignments
+Programming Assignment 0: Object Oriented Programming Skills Assessment
