@@ -66,6 +66,9 @@ class TestArgsParser(unittest.TestCase):
             arg.get_integer("b")
 
     def test_invalid_integer_value(self):
+        """
+            Negative test case to check get integer option - string is passed instead of integer
+        """
         schema = "l,c#,b*"
         args = ["-l","-ct"]
         with self.assertRaises(ValueError):
@@ -92,12 +95,18 @@ class TestArgsParser(unittest.TestCase):
             arg.get_string("l")
     
     def test_empty_schema(self):
+        """
+            Positive test case - empty schema
+        """
         schema = ""
         args = []
         arg = Args(schema,args)
         pass
 
     def test_invalid_argument_syntax(self):
+        """
+            Negative test case - Invalid argument syntax
+        """
         schema = "l,b*"
         args = ["-l","b"]
         with self.assertRaises(ArgumentParseError):
