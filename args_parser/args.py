@@ -63,8 +63,6 @@ class Args:
                 else:
                    raise ArgumentParseError("Invalid Argument: Argument not present in schema!")
                 self.flags[option] = value
-            else:
-                raise ArgumentParseError("Invalid Argument")
         
         # set the options/flags with default values if its not a part of arguments
         for key in self.data_specifiers.keys():

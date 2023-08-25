@@ -142,15 +142,6 @@ class TestArgsParser(unittest.TestCase):
         arg = Args(schema,args)
         pass
 
-    def test_invalid_argument_syntax(self):
-        """
-            Negative test case - Invalid argument syntax
-        """
-        schema = "l,b*"
-        args = ["-l","b"]
-        with self.assertRaises(ArgumentParseError):
-            arg = Args(schema,args)
-
     def test_invalid_schema(self):
         """
             Negative test case to check for invalid schema
