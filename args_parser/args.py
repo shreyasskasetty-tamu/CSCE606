@@ -105,6 +105,7 @@ class Args:
 
         if self.data_specifiers[flag] != "*":
             raise FlagError("Invalid request. Flag does not have string type!")
+            
         return self.flags[flag]
     
     def get_integer(self, flag: str) -> int:

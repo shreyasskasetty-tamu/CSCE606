@@ -27,7 +27,7 @@ class TestArgsParser(unittest.TestCase):
         arg = Args(schema,args)
         self.assertFalse(arg.has("z"))
 
-    def test_boolean_option(self):
+    def test_get_boolean_option(self):
         """
             Positive test case to check get boolean function.
         """
@@ -35,6 +35,25 @@ class TestArgsParser(unittest.TestCase):
         args = ["-l","-c42"]
         arg = Args(schema,args)
         self.assertTrue(arg.get_boolean("l"))
+    
+    def test_get_boolean_option_default(self):
+        """
+            Positive test case to check default case of boolean option.
+        """
+        schema = "l,c#,b*"
+        args = ["-c42"]
+        arg = Args(schema,args)
+        self.assertFalse(arg.get_boolean("l"))
+
+    def test_get_boolean_option_invalid_flag(self):
+        """
+            Negative test case to check invalid flag passed to get_boolean method.
+        """
+        schema = "l,c#,b*"
+        args = ["-c42"]
+        arg = Args(schema,args)
+        with self.assertRaises(FlagError):
+            arg.get_boolean("e")
     
     def test_invalid_boolean_option(self):
         """
@@ -75,7 +94,17 @@ class TestArgsParser(unittest.TestCase):
             arg = Args(schema,args)
             arg.get_integer("c")
 
-    def test_string_option(self):
+    def test_get_integer_invalid_flag(self):
+        """
+            Negative test case to check get integer option with invalid flag
+        """
+        schema = "l,c#,b*"
+        args = ["-l","-bWhoop"]
+        arg = Args(schema,args)
+        with self.assertRaises(FlagError):
+            arg.get_integer("f")
+
+    def test_get_string_option(self):
         """
             Positive test case to check get string option
         """
@@ -83,6 +112,16 @@ class TestArgsParser(unittest.TestCase):
         args = ["-l","-bWhoop"]
         arg = Args(schema,args)
         self.assertEqual(arg.get_string("b"),"Whoop")
+
+    def test_get_string_invalid_flag(self):
+        """
+            Negative test case to check get string option with invalid flag
+        """
+        schema = "l,c#,b*"
+        args = ["-l","-bWhoop"]
+        arg = Args(schema,args)
+        with self.assertRaises(FlagError):
+            arg.get_string("f")
 
     def test_invalid_string_option(self):
         """
@@ -138,6 +177,7 @@ class TestArgsParser(unittest.TestCase):
         args = ["-l","-e"]
         with self.assertRaises(ArgumentParseError):
             arg = Args(schema,args)
+
 
 if __name__ == "__main__":
     unittest.main()
