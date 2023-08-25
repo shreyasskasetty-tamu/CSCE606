@@ -1,5 +1,5 @@
 #!/bin/bash
-coverage run -m unittest discover -s tests -p "test_*.py"
+coverage run --source=args_parser -m unittest discover -s tests -p "test_*.py"
 
 # Generate coverage report
 coverage report -m

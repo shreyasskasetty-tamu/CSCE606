@@ -35,7 +35,7 @@ class TestArgsParser(unittest.TestCase):
         args = ["-l","-c42"]
         arg = Args(schema,args)
         self.assertTrue(arg.get_boolean("l"))
-    
+
     def test_get_boolean_option_default(self):
         """
             Positive test case to check default case of boolean option.
@@ -92,7 +92,6 @@ class TestArgsParser(unittest.TestCase):
         args = ["-l","-ct"]
         with self.assertRaises(ValueError):
             arg = Args(schema,args)
-            arg.get_integer("c")
 
     def test_get_integer_invalid_flag(self):
         """
@@ -141,6 +140,12 @@ class TestArgsParser(unittest.TestCase):
         args = []
         arg = Args(schema,args)
         pass
+        
+    def test_repititive_argument(self):
+        schema = "l,c#,b*"
+        args = ["-l","-bWhoop","-bShreyas"]
+        with self.assertRaises(ArgumentParseError):
+            arg = Args(schema,args)
 
     def test_invalid_schema(self):
         """
@@ -168,7 +173,6 @@ class TestArgsParser(unittest.TestCase):
         args = ["-l","-e"]
         with self.assertRaises(ArgumentParseError):
             arg = Args(schema,args)
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -50,7 +50,7 @@ class Args:
             if arg.startswith("-"):
                 option = arg[1]
                 value = None
-                if option in self.data_specifiers:
+                if option in self.data_specifiers and option not in self.flags:
                     if self.data_specifiers[option] == "#":
                         try:
                             value = int(arg[2:])
@@ -61,7 +61,10 @@ class Args:
                     else:
                         value = True
                 else:
-                   raise ArgumentParseError("Invalid Argument: Argument not present in schema!")
+                    if option in self.flags:
+                        raise ArgumentParseError("Invalid Argument: Argument repitition!")
+                    else:
+                        raise ArgumentParseError("Invalid Argument: Argument not present in schema!")
                 self.flags[option] = value
         
         # set the options/flags with default values if its not a part of arguments
@@ -119,3 +122,11 @@ class Args:
 
         return self.flags[flag]
 
+# if __name__ == "__main__":
+#     schema = "l,b*"
+#     args = ["l","-bShreyas","-bWhoop"]
+#     try:
+#         arg = Args(schema,args)
+#     except Exception as e:
+#         print(e)
+    
