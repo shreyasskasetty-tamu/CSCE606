@@ -122,11 +122,3 @@ class Args:
 
         return self.flags[flag]
 
-# if __name__ == "__main__":
-#     schema = "l,b*"
-#     args = ["l","-bShreyas","-bWhoop"]
-#     try:
-#         arg = Args(schema,args)
-#     except Exception as e:
-#         print(e)
-    
